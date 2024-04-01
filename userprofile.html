@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Profile</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1, h2 {
+    margin-top: 0;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    height: 100px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
+
+  .progress {
+    margin-bottom: 20px;
+  }
+
+  /* Media Queries */
+  @media screen and (max-width: 768px) {
+    .container {
+      max-width: 90%;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: calc(100% - 20px);
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .container {
+      padding: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>User Profile Builder</h1>
+  <form id="profile-form" action="/submit-profile" method="POST">
+    <div class="progress">
+      <progress id="progress" value="0" max="100"></progress>
+      <p id="progress-label">Progress: 0%</p>
+    </div>
+    <div id="step-1">
+      <h2>Step 1: Personal Details</h2>
+      <label for="name">Given Name:</label>
+      <input type="text" id="name" name="name"><br>
+
+      <label for="one_input"> Sure Name:</label>
+      <input type="text" id="one_input" name="name"><br>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age"><br><br>
+
+      <label for="gender"> Gender</label>
+      <input type="text" id="gender" name="name"><br>
+
+      <button type="button" onclick="nextStep()">Next</button>
+    </div>
+    <div id="step-2" style="display: none;">
+      <h2>Step 2: Qualifications</h2>
+      <label for="degree">Area of study</label>
+      <input type="text" id="study" name="study"><br>
+
+      <label for="degree">Highest Degree</label>
+      <input type="text" id="degree" name="degree"><br>
+
+      <label for="institution">University/Institution</label>
+      <input type="text" id="institution" name="University"><br>
+
+      <label for="end">Completion Year</label>
+      <input type="text" id="end" name="interests"><br>
+
+      <label for="country">Country</label>
+      <input type="text" id="country" name="country"><br>
+
+
+      <button type="button" onclick="prevStep()">Previous</button>
+      <button type="button" onclick="nextStep()">Next</button>
+    </div>
+    <div id="step-3" style="display: none;">
+      <h2>Step 3:Contact details</h2>
+      <label for="email">Email</label>
+      <input type="Email" id="email" name="email"><br>
+
+      <label for="country">Phone Number</label>
+      <input type="number" id="number" name="number"><br><br>
+
+      <label for="address">Address</label>
+      <input type="text" id="address" name="address"><br><br>
+      <button type="button" onclick="prevStep()">Previous</button>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 3;
+
+  function nextStep() {
+    if (currentStep < totalSteps) {
+      document.getElementById(`step-${currentStep}`).style.display = "none";
+      currentStep++;
+      document.getElementById(`step-${currentStep}`).style.display = "block";
+      updateProgress();
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 1) {
+      document.getElementById(`step-${currentStep}`).style.display = "none";
+      currentStep--;
+      document.getElementById(`step-${currentStep}`).style.display = "block";
+      updateProgress();
+    }
+  }
+
+  function updateProgress() {
+    const progress = ((currentStep-1) / totalSteps) * 100;
+    document.getElementById("progress").value = progress;
+    document.getElementById("progress-label").textContent = `Progress: ${progress.toFixed(0)}%`;
+  }
+</script>
+</body>
+</html>
